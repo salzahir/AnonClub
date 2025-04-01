@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <% title %>
+        <h1>Welcome to the Anon Club </h1>
+
+        <% if (user) { %>
+            <h2>Welcome back, <%= user.name %>!</h2>
+        <% } else { %>
+            <%- include('login') %>
+        <% } %>
+
+    </header>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const path = require('path');
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
@@ -18,6 +19,7 @@ const routes = require('./routes/routes');
 app.use('/', routes);
 
 
-
-                                                                                                                                                                                                                                                                                                                                                                                                           
-
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
+});
+                                                                                                                                                                                                                                                                                                                                                                                                       
