@@ -10,4 +10,7 @@ router.post("/login", (req, res) => {
     const {username, password} = req.body;
 })
 
+router.get("/signup", controller.getSignup);
+router.post("/signup", controller.handlePostSignup);
+
 module.exports = router;
