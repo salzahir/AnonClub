@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <header>
         <% title %>
-        <h1>Welcome to the Anon Club </h1>
+        <h1>Welcome to the Echo Room </h1>
 
         <% if (user) { %>
             <h2>Welcome back, <%= user.username %>!</h2>
@@ -16,16 +16,13 @@
             <form action="/logout" method="GET">
                 <button type="submit">Logout</button>
               </form>
-              
+
             <p>Here are your messages:</p>
-
-
 
         <% } else { %>
             <%- include('login') %>
         <% } %>
 
-    </header>
 
 </body>
 </html>
