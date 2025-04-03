@@ -3,10 +3,19 @@ const app = express();
 require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 3000;
+const session = require("express-session");
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+}));
 
 // Views
 app.set('view engine', 'ejs');

@@ -1,8 +1,11 @@
-const {body, validationResult} = require('express-validator');
+const {body, validationResult, check} = require('express-validator');
 const db = require('../db/queries');
+const passport = require('passport');
 
 function getHome(req, res) {
-    res.render('index', { title: 'Home', user: null }); // Merge both into one object
+    res.render('index', { title: 'Home', 
+        user: req.user || req.session.user  
+    });
 }
 
 function getLogin(req, res) {
@@ -13,19 +16,32 @@ function getSignup(req, res) {
     res.render('signup', { title: 'Sign Up' });
 }
 
-function postLogin(req, res) {
+function postLogin(req, res, next) {
     const {username, password} = req.body;
-
-    db.checkSignIn(username, password, (err, user) => {
-        if (err) {
+    
+    console.log("Received login request:", username, password);
+    
+    passport.authenticate("local", (err, user, info) => {
+        if(err) {
+            console.error('Error during authentication:', err);
             return res.status(500).send('Internal Server Error');
         }
-        if (!user) {
-            return res.status(401).send('Invalid username or password');
+        
+        if(!user) {
+            console.error('User not found or incorrect password:', username);
+            return res.status(401).send('Unauthorized');
         }
-        req.session.user = user;
-        res.redirect('/');
-    });
+        
+        req.logIn(user, function(err) {
+            if (err) { 
+                console.error('Error during login:', err);
+                return next(err); 
+            }
+            
+            req.session.user = user;
+            return res.redirect('/');
+        });
+    })(req, res, next); 
 }
 
 async function handlePostSignup(req, res) {
@@ -42,10 +58,18 @@ async function handlePostSignup(req, res) {
     }
 }
 
+function handleLogOut(req, res) {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+}
+
 module.exports = {
     getHome
     , getLogin
     , getSignup
     , postLogin
-    , handlePostSignup
+    , handlePostSignup,
+    handleLogOut
 };
