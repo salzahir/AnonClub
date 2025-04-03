@@ -11,7 +11,16 @@
         <h1>Welcome to the Anon Club </h1>
 
         <% if (user) { %>
-            <h2>Welcome back, <%= user.name %>!</h2>
+            <h2>Welcome back, <%= user.username %>!</h2>
+
+            <form action="/logout" method="GET">
+                <button type="submit">Logout</button>
+              </form>
+              
+            <p>Here are your messages:</p>
+
+
+
         <% } else { %>
             <%- include('login') %>
         <% } %>
