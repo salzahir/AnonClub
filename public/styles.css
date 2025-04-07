@@ -15,7 +15,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-.login-form {
+.login-form, .signup-form {
     background-color: white;
     padding: 20px;
     border-radius: 8px;

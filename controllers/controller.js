@@ -47,14 +47,17 @@ function postLogin(req, res, next) {
 async function handlePostSignup(req, res) {
 
     const {username, password} = req.body;
-    console.log("Received signup request:", username, password); // ✅ Check if request data is received
-
+    console.log("Received signup request:", username, password); 
     try {
         await db.signUserUp(username, password)
         res.redirect('/');
     } catch (error) {
         console.error('Error signing up user:', error);
-        res.status(500).send('Internal Server Error');
+        res.render('signup', { 
+            title: 'Sign Up', 
+            message: 'Username already exists. Please choose another one.',
+            messageType: 'error'
+        });
     }
 }
 
