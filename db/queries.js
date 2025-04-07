@@ -54,6 +54,16 @@ async function signUserUp(username, password) {
     }
 }
 
+
+async function getMessages() {
+    try {
+        const { rows } = await db.query('SELECT * FROM messages');
+        return rows;
+    } catch (error) {
+        console.error('Error retrieving messages:', error);
+        throw error;
+    }
+}
 module.exports = {
     signUserUp
 };
