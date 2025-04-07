@@ -58,12 +58,21 @@ async function signUserUp(username, password) {
 async function getMessages() {
     try {
         const { rows } = await db.query('SELECT * FROM messages');
+        
+        if (rows.length === 0) {
+            console.log('No messages found.');
+            return [];
+        }
+        
+        console.log('Messages retrieved:', rows);  
         return rows;
     } catch (error) {
         console.error('Error retrieving messages:', error);
         throw error;
     }
 }
+
 module.exports = {
-    signUserUp
+    signUserUp,
+    getMessages
 };

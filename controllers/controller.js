@@ -2,10 +2,17 @@ const {body, validationResult, check} = require('express-validator');
 const db = require('../db/queries');
 const passport = require('passport');
 
-function getHome(req, res) {
-    res.render('index', { title: 'Home', 
-        user: req.user || req.session.user  
-    });
+async function getHome(req, res) {
+    try {
+        const messages = await db.getMessages();
+        res.render('index', { title: 'Home', 
+            user: req.user || req.session.user,
+            messages: messages,
+        });
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+        res.status(500).send('Internal Server Error');
+    }
 }
 
 function getLogin(req, res) {

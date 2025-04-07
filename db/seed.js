@@ -25,6 +25,15 @@ async function connectQuery(client, sql) {
     }
 }
 
+
+function readSQLFile(filePath) {
+    if (!fs.existsSync(filePath)) {
+        console.error(`${filePath} file not found.`);
+        throw new Error(`${filePath} file not found.`);
+    }
+    return fs.readFileSync(filePath, 'utf8');
+}
+
 // Function to seed the database
 async function seedDatabase() {
     const DATABASE_URL = process.env.DATABASE_URL;
@@ -35,8 +44,8 @@ async function seedDatabase() {
         connectionString: DATABASE_URL,
     });
 
-    const sqlFilePath = path.join(__dirname, 'seed.sql');
-    const sql = fs.readFileSync(sqlFilePath, 'utf8');
+    const sqlFilePath = path.join(__dirname, 'schema.sql');
+    const sql = readSQLFile(sqlFilePath);
 
     await connectQuery(client, sql);
 
