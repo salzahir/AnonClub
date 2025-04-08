@@ -15,6 +15,9 @@ async function connectQuery(client, sql) {
     try {
         await client.connect();
         console.log('Connected to the database');
+        await client.query('DROP TABLE IF EXISTS users');
+        await client.query('DROP TABLE IF EXISTS messages');
+        console.log('Dropped existing tables');
         await client.query(sql);
         console.log('Database seeded successfully');
     } catch (error) {
