@@ -75,11 +75,27 @@ function handleLogOut(req, res) {
     });
 }
 
+async function handleDeleteMessage(req, res) {
+    const messageId = req.params.id;
+    try {
+        const deleted = await db.deleteMessage(messageId);
+        if (!deleted) {
+            return res.status(404).send('Message not found');
+        }
+        console.log('Message deleted:', deleted);
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error deleting message:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
 module.exports = {
     getHome
     , getLogin
     , getSignup
     , postLogin
     , handlePostSignup,
-    handleLogOut
+    handleLogOut,
+    handleDeleteMessage,
 };

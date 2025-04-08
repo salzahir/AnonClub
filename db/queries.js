@@ -63,7 +63,7 @@ async function getMessages() {
             console.log('No messages found.');
             return [];
         }
-        
+
         console.log('Messages retrieved:', rows);  
         return rows;
     } catch (error) {
@@ -72,7 +72,18 @@ async function getMessages() {
     }
 }
 
+async function deleteMessage(id) {
+    try {
+        const {rows } = await db.query('DELETE FROM messages WHERE id = $1 RETURNING *', [id]);
+        return rows[0];
+    } catch (error) {
+        console.error('Error deleting message:', error);
+        throw error;
+    }
+}
+
 module.exports = {
     signUserUp,
-    getMessages
+    getMessages,
+    deleteMessage
 };

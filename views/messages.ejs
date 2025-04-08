@@ -6,6 +6,11 @@
         <li>
             <% if (user.admin) { %>
                 <%= message.username + ": " %>
+
+                <form action="/messages/delete/<%= message.id %>" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-button">Delete</button>
+                  </form>
+
             <% } %>
             <%= message.message %> 
             <%= new Date(message.created_at).toLocaleString('en-US', {

@@ -13,4 +13,6 @@ router.get("/signup", controller.getSignup);
 router.post("/signup", controller.handlePostSignup);
 
 router.get("/logout", controller.handleLogOut);
+
+router.post("/messages/delete/:id", controller.handleDeleteMessage);
 module.exports = router;
