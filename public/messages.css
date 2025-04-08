@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.messages li {
+    background-color: #f8f9fe;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 3px solid #6c63ff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.message-content {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.message-meta {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.username {
+    color: #6c63ff;
+    font-weight: bold;
+}
+
+.delete-button {
+    padding: 6px 10px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 8px;
+}
+
+.delete-button:hover {
+    background-color: #5a53e0;
+}
