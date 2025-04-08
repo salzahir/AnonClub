@@ -82,8 +82,19 @@ async function deleteMessage(id) {
     }
 }
 
+async function addMessage(username, message) {
+    try {
+        const {rows} = await db.query('INSERT INTO messages (username, message) VALUES ($1, $2) RETURNING *', [username, message]);
+        return rows[0];
+    } catch (error) {
+        console.error('Error adding message:', error);
+        throw error;    
+    }
+}
+
 module.exports = {
     signUserUp,
     getMessages,
-    deleteMessage
+    deleteMessage,
+    addMessage
 };

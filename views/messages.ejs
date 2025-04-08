@@ -34,4 +34,11 @@
             </li>
         <% }) %>
     </ul>
+
+    <form action="/messages/new" method="post" >
+        <label for="message">New Message:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit">Send</button>
+    </form>
+
 </div>

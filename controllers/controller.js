@@ -90,6 +90,24 @@ async function handleDeleteMessage(req, res) {
     }
 }
 
+async function handleNewMessage(req, res) {
+    
+    if (!req.isAuthenticated() || !req.user) {
+        return res.status(401).send('Unauthorized - Please log in first');
+    }
+    const userName = req.user.username;
+
+    const {message} = req.body;
+    console.log("Received new message request:", userName, message);
+    try {
+        await db.addMessage(userName, message);
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error adding new message:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
 module.exports = {
     getHome
     , getLogin
@@ -98,4 +116,5 @@ module.exports = {
     , handlePostSignup,
     handleLogOut,
     handleDeleteMessage,
+    handleNewMessage
 };
