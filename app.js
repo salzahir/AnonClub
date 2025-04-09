@@ -31,9 +31,15 @@ app.set('views', path.join(__dirname, 'views'));
 const publicDir = path.join(__dirname, 'public');
 app.use(express.static(publicDir));
 
-// Routes
-const routes = require('./routes/routes');
-app.use('/', routes);
+// Importing the routes
+const authRoutes = require('./routes/authroutes'); 
+const messageRoutes = require('./routes/messageroutes');
+const homeRoutes = require('./routes/homeroute'); 
+
+// Use the routes
+app.use('/', homeRoutes); 
+app.use('/', authRoutes); 
+app.use('/', messageRoutes); 
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
