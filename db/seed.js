@@ -28,7 +28,6 @@ async function connectQuery(client, sql) {
     }
 }
 
-
 function readSQLFile(filePath) {
     if (!fs.existsSync(filePath)) {
         console.error(`${filePath} file not found.`);
