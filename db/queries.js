@@ -1,9 +1,10 @@
 const db = require('./pool');
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 async function signUserUp(username, password) {
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
         const { rows } = await db.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, hashedPassword]);
         return rows[0];
     } catch (error) {
