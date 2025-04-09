@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 
-const controller = require('../controllers/controller');
+const messageController = require('../controllers/messagecontroller');
 const authController = require('../controllers/authcontroller');
 const homeController = require('../controllers/homecontroller');
 
@@ -16,6 +16,6 @@ router.post("/signup", authController.handlePostSignup);
 
 router.get("/logout", authController.handleLogOut);
 
-router.post("/messages/delete/:id", controller.handleDeleteMessage);
-router.post("/messages/new", controller.handleNewMessage);
+router.post("/messages/delete/:id", messageController.handleDeleteMessage);
+router.post("/messages/new", messageController.handleNewMessage);
 module.exports = router;
