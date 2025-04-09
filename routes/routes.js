@@ -3,9 +3,10 @@ const router = Router();
 
 const controller = require('../controllers/controller');
 const authController = require('../controllers/authcontroller');
+const homeController = require('../controllers/homecontroller');
 
 // GET home page
-router.get('/', controller.getHome);
+router.get('/', homeController.getHome);
 
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);

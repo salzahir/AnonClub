@@ -1,19 +1,4 @@
-const {body, validationResult, check} = require('express-validator');
 const db = require('../db/queries');
-const passport = require('passport');
-
-async function getHome(req, res) {
-    try {
-        const messages = await db.getMessages();
-        res.render('index', { title: 'Home', 
-            user: req.user || req.session.user,
-            messages: messages,
-        });
-    } catch (error) {
-        console.error('Error fetching messages:', error);
-        res.status(500).send('Internal Server Error');
-    }
-}
 
 async function handleDeleteMessage(req, res) {
     const messageId = req.params.id;
@@ -49,7 +34,6 @@ async function handleNewMessage(req, res) {
 }
 
 module.exports = {
-    getHome,
     handleDeleteMessage,
     handleNewMessage
 };
