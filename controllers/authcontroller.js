@@ -1,9 +1,6 @@
 const passport = require('passport');
 const db = require('../db/pool');
 
-function getLogin(req, res) {
-    res.render('login', { title: 'Login' });
-}
 
 function getSignup(req, res) {
     res.render('signup', { title: 'Sign Up' });
@@ -15,7 +12,7 @@ function postLogin(req, res, next) {
     console.log("Received login request:", username, password);
     
     passport.authenticate("local", (err, user, info) => {
-        
+
         if(err) {
             console.error('Error during authentication:', err);
             return res.status(500).send('Internal Server Error');
@@ -25,7 +22,7 @@ function postLogin(req, res, next) {
             console.log('Authentication failed:', info.message);
             res.render('index', { title: 'Home', 
                 user: req.user || req.session.user,
-                message: user ? "Sign in" : 'Login Error',
+                message: user ? null : 'Login Error',
                 messages: [],
             });
         }
@@ -67,7 +64,6 @@ function handleLogOut(req, res) {
 }
 
 module.exports = {
-    getLogin,
     getSignup,
     postLogin,
     handlePostSignup,
