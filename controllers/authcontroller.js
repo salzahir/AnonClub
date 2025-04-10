@@ -63,9 +63,14 @@ function handleLogOut(req, res) {
     });
 }
 
+function getMember(req, res) {
+    res.render('member', { title: 'Member Area' });
+}
+
 module.exports = {
     getSignup,
     postLogin,
     handlePostSignup,
-    handleLogOut
+    handleLogOut,
+    getMember
 };
