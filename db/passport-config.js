@@ -26,7 +26,17 @@ function configurePassport(passport) {
     );
 
     passport.serializeUser((user, done) => {
-        done(null, user.id);
+
+        if (!user) {
+            console.error('User object is undefined during serialization.');
+            return done(new Error('User object not found during serialization.'));
+        }
+    
+        if (!user.id) {
+            return done(new Error('User ID is missing during serialization.'));
+        }
+    
+        done(null, user.id);  // Serialize user by its ID
     });
 
     passport.deserializeUser(async (id, done) => {

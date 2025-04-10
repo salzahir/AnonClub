@@ -5,6 +5,7 @@ async function getHome(req, res) {
         const messages = await db.getMessages();
         res.render('index', { title: 'Home', 
             user: req.user || req.session.user,
+            message: "sign in",
             messages: messages,
         });
     } catch (error) {

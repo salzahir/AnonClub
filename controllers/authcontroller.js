@@ -15,14 +15,19 @@ function postLogin(req, res, next) {
     console.log("Received login request:", username, password);
     
     passport.authenticate("local", (err, user, info) => {
+        
         if(err) {
             console.error('Error during authentication:', err);
             return res.status(500).send('Internal Server Error');
         }
         
         if(!user) {
-            console.error('User not found or incorrect password:', username);
-            return res.status(401).send('Unauthorized');
+            console.log('Authentication failed:', info.message);
+            res.render('index', { title: 'Home', 
+                user: req.user || req.session.user,
+                message: user ? "Sign in" : 'Login Error',
+                messages: [],
+            });
         }
         
         req.logIn(user, function(err) {
