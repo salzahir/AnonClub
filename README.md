@@ -1,5 +1,9 @@
 # **EchoRoom**
 
+<div align="left">
+  <img src="images/icon.png" alt="EchoRoom Icon" width="75">
+</div>
+
 EchoRoom is a private and anonymous messaging platform designed for users to engage in discussions without revealing their identities. Built with **Node.js, Express, Passport.js, and PostgreSQL**, it ensures secure authentication and seamless user experience.
 
 ## **Features**
