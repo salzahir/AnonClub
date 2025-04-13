@@ -1,6 +1,5 @@
 const passport = require('passport');
-const db = require('../db/pool');
-
+const db = require('../db/queries');
 
 function getSignup(req, res) {
     res.render('signup', { title: 'Sign Up' });
@@ -44,7 +43,7 @@ async function handlePostSignup(req, res) {
     const {username, password} = req.body;
     console.log("Received signup request:", username, password); 
     try {
-        await db.signUserUp(username, password)
+        await db.signUserUp(username, password, 'user');
         res.redirect('/');
     } catch (error) {
         console.error('Error signing up user:', error);

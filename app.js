@@ -4,6 +4,7 @@ require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 3000;
 const session = require("express-session");
+const WebSocket = require('ws');
 
 // Middleware
 app.use(express.json());
@@ -43,5 +44,4 @@ app.use('/', messageRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
-});
-                                                                                                                                                                                                                                                                                                                                                                                                       
+});                                                                                                                                                                                                                                                                                                                                                    

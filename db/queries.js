@@ -2,10 +2,10 @@ const db = require('./pool');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-async function signUserUp(username, password) {
+async function signUserUp(username, password, role) {
     try {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        const { rows } = await db.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, hashedPassword]);
+        const { rows } = await db.query('INSERT INTO users (username, password, role) VALUES ($1, $2, $3) RETURNING *', [username, hashedPassword, role]);
         return rows[0];
     } catch (error) {
         console.error('Error signing up user:', error);
