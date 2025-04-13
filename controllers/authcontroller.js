@@ -63,7 +63,30 @@ function handleLogOut(req, res) {
 }
 
 function getMember(req, res) {
-    res.render('member', { title: 'Member Area' });
+    res.render('member', { title: 'Member Area', message: null });
+}
+
+async function handleSetMember(req, res) {
+
+    const user = req.user || req.session.user; 
+    const memberPassword = req.body.password;
+
+    console.log("Member password check for user:", user);
+    console.log("Received password for member area:", memberPassword);
+
+    if(memberPassword !== "secret") {
+        console.log("Incorrect password for user:", user);
+        return res.render('member', { title: 'Member Area', message: 'Incorrect password' });
+    }
+
+    try {
+        await db.setMember(user.username);
+        console.log("User role updated to member:", user);
+        res.redirect('/member');
+    } catch (error) {
+        console.error('Error updating user role:', error);
+        res.status(500).send('Internal Server Error');
+    }
 }
 
 module.exports = {
@@ -71,5 +94,6 @@ module.exports = {
     postLogin,
     handlePostSignup,
     handleLogOut,
-    getMember
+    getMember,
+    handleSetMember
 };

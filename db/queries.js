@@ -21,8 +21,6 @@ async function getMessages() {
             console.log('No messages found.');
             return [];
         }
-
-        console.log('Messages retrieved:', rows);  
         return rows;
     } catch (error) {
         console.error('Error retrieving messages:', error);
@@ -50,9 +48,23 @@ async function addMessage(username, message) {
     }
 }
 
+async function setMember(username) {
+
+    console.log("Setting member role for user:", username);
+
+    try {
+        const { rows } = await db.query('UPDATE users SET role = $1 WHERE username = $2 RETURNING *',['member', username]);
+        return rows[0];
+    } catch (error) {
+        console.error('Error setting member role:', error);
+        throw error;
+    }
+}
+
 module.exports = {
     signUserUp,
     getMessages,
     deleteMessage,
-    addMessage
+    addMessage,
+    setMember
 };
