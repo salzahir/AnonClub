@@ -1,5 +1,8 @@
+// authcontroller.js
+
 const passport = require('passport');
 const db = require('../db/queries');
+const { validationResult } = require('express-validator');
 
 function getSignup(req, res) {
     res.render('signup', { title: 'Sign Up' });
@@ -39,6 +42,16 @@ function postLogin(req, res, next) {
 }
 
 async function handlePostSignup(req, res) {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const errorMessages = errors.array().map(error => error.msg);
+        return res.render('signup', {
+            title: 'Sign Up',
+            message: errorMessages.join(', '),
+            messageType: 'error'
+        });
+    }
 
     const {username, password} = req.body;
     console.log("Received signup request:", username, password); 

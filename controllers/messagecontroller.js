@@ -20,6 +20,7 @@ async function handleNewMessage(req, res) {
     if (!req.isAuthenticated() || !req.user) {
         return res.status(401).send('Unauthorized - Please log in first');
     }
+    
     const userName = req.user.username;
 
     const {message} = req.body;
