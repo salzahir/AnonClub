@@ -1,10 +1,14 @@
 const db = require('../db/queries');
+const {getRoleGreeting} = require('../utils/greeting');
 
 async function getHome(req, res) {
     try {
         const messages = await db.getMessages();
+        const user = req.user || req.session.user || null;
+        const role = getRoleGreeting(user)
         res.render('index', { title: 'Home', 
-            user: req.user || req.session.user,
+            user: user,
+            role: role,
             message: null,
             messages: messages,
         });

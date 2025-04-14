@@ -1,8 +1,13 @@
 <link rel="stylesheet" href="messages.css">
 
 <div class="container">
-    <h2>Welcome back, <%= user.username %>!</h2>
+
+    <% if (typeof message !== 'undefined') { %>
+        <p class="message" style="color: red;"><%= message %></p>
+    <% } %>
     
+    <h2><%= role %></h2>  
+
     <h2>Here are your messages:</h2>
     
     <ul class="messages">
@@ -10,7 +15,7 @@
             <li>
                 <!-- Show message details (common to all) -->
                 <div class="message-content"><%= message.message %></div>
-    
+                
                 <!-- If user is a member, show username and date -->
                 <% if (user.role === "member" || user.role === "admin") { %>
                     <div class="message-meta">
