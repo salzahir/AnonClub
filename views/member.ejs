@@ -8,6 +8,7 @@ you will beocme a member of the echo room
 <h1><%= message %></h1>
 
 <form action="/member" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <input type="password" name="password" placeholder="Enter the password" required>
     <button type="submit">Become a Member</button>
 </form>

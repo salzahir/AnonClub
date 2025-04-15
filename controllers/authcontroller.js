@@ -5,7 +5,7 @@ const db = require('../db/queries');
 const { validationResult } = require('express-validator');
 
 function getSignup(req, res) {
-    res.render('signup', { title: 'Sign Up' });
+    res.render('signup', { title: 'Sign Up', csrfToken: req.csrfToken()});
 }
 
 function postLogin(req, res, next) {
@@ -26,6 +26,7 @@ function postLogin(req, res, next) {
                 user: req.user || req.session.user,
                 message: user ? null : 'Login Error',
                 messages: [],
+                csrfToken: req.csrfToken()
             });
         }
         
@@ -49,7 +50,8 @@ async function handlePostSignup(req, res) {
         return res.render('signup', {
             title: 'Sign Up',
             message: errorMessages.join(', '),
-            messageType: 'error'
+            messageType: 'error',
+            csrfToken: req.csrfToken()
         });
     }
 
@@ -63,7 +65,8 @@ async function handlePostSignup(req, res) {
         res.render('signup', { 
             title: 'Sign Up', 
             message: 'Username already exists. Please choose another one.',
-            messageType: 'error'
+            messageType: 'error',
+            csrfToken: req.csrfToken()
         });
     }
 }
