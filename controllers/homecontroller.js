@@ -13,6 +13,7 @@ async function getHome(req, res) {
             role: role,
             message: null,
             messages: messages,
+            csrfToken: req.csrfToken()
         });
     } catch (error) {
         console.error('Error fetching messages:', error);

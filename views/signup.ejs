@@ -8,6 +8,7 @@
         <p class="message" style="color: red;"><%= message %></p>
       <% } %>
 
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <label for="username">Username</label>
     <input id="username" type="text" name="username" placeholder="Enter your username" required>
 
