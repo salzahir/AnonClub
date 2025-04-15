@@ -13,6 +13,7 @@ Secure anonymous messaging platform with role-based access control built with No
 - Three-tier role system (admin/member/user)
 - Password hashing with bcrypt
 - Session management with Express-session
+- CSRF protection to prevent cross-site request forgery attacks
 
 ### Messaging
 - Anonymous posting
