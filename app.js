@@ -1,22 +1,32 @@
 // app.js
 const express = require('express');
+const path = require('path');
+
 const app = express();
 
 // Configuration
 require('dotenv').config();
-const path = require('path');
-const session = require("express-session");
 
 // Middleware
+
+// Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Cookie parser middleware
+const session = require("express-session");
+const csurf = require("csurf");
+const cookieParser = require("cookie-parser");
+
 // Session configuration
+
+app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
 }));
+app.use(csurf({cookie: true}));
 
 // Passport configuration
 const passport = require('passport');
