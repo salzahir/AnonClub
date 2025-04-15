@@ -11,27 +11,31 @@
     <h2>Here are your messages:</h2>
     
     <ul class="messages">
-        <% messages.forEach(function(message) { %>
-            <li>
-                <!-- Show message details (common to all) -->
-                <div class="message-content"><%= message.message %></div>
-                
-                <!-- If user is a member, show username and date -->
-                <% if (user.role === "member" || user.role === "admin") { %>
-                    <div class="message-meta">
-                        <span class="username"><%= message.username %></span> • 
-                        <span class="timestamp"><%= message.formattedDate %></span>
-                    </div>
-                <% } %>
-    
-                <!-- Admin can delete messages -->
-                <% if (user.role === "admin") { %>
-                    <form action="/messages/delete/<%= message.id %>" method="POST">
-                        <button type="submit" class="delete-button">Delete</button>
-                    </form>
-                <% } %>
-            </li>
-        <% }) %>
+        <% if (messages.length === 0) { %>
+            <p>No messages yet. Be the first to post!</p>
+        <% } else { %>
+            <% messages.forEach(function(message) { %>
+                <li>
+                    <!-- Show message details (common to all) -->
+                    <div class="message-content"><%= message.message %></div>
+                    
+                    <!-- If user is a member, show username and date -->
+                    <% if (user.role === "member" || user.role === "admin") { %>
+                        <div class="message-meta">
+                            <span class="username"><%= message.username %></span> • 
+                            <span class="timestamp"><%= message.formattedDate %></span>
+                        </div>
+                    <% } %>
+            
+                    <!-- Admin can delete messages -->
+                    <% if (user.role === "admin") { %>
+                        <form action="/messages/delete/<%= message.id %>" method="POST">
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                    <% } %>
+                </li>
+            <% }) %>
+        <% } %>
     </ul>
 
     <form action="/messages/new" method="post" >
